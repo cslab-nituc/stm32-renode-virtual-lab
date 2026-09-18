@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>STM32 Emurater</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <h2>STM32 Emurater</h2>
+
+    <div class="container">
+<div class="row">
+
+        <!-- モーター -->
+        <div class="panel">
+          <h4>Motor</h4><p id="motor-state">—</p><small class="unsupported">Direction/state only · 方向・状態のみ<br>No physical dynamics · 物理挙動なし</small>
+          <img id="motor" alt="Motor direction indicator" src="/static/img/fan.png" width="256" height="256">
+        </div>
+        &nbsp;
+
+        <!-- <h4>STMF446re</h4> -->
+        <div class="panel">
+          <img alt="STM32F446RE board illustration" src="/static/img/stm32f446re.png" width="356" height="426">
+        </div>
+        &nbsp;
+
+        <!-- アナログ入力 -->
+        <div class="panel">
+          <h4>Analog Input</h4>
+          <h5>In0</h5>
+          <input id="adc-slider0" type="range" min="0" max="4095" value="0" />
+          <div class="slider-value analog-spacing">
+            <span id="adc-value0">0</span> / 4095 (12bit)
+          </div>
+
+          <h5>In1 <small class="unsupported">未対応</small></h5>
+          <input disabled id="adc-slider1" type="range" min="0" max="4095" value="0" />
+          <div class="slider-value analog-spacing">
+            <span id="adc-value1">0</span> / 4095 (12bit)
+          </div>
+          
+          <h5>In2 <small class="unsupported">未対応</small></h5>
+          <input disabled id="adc-slider2" type="range" min="0" max="4095" value="0" />
+          <div class="slider-value analog-spacing">
+            <span id="adc-value2">0</span> / 4095 (12bit)
+          </div>
+        </div>
+      </div>
+
+      <!-- プッシュスイッチ -->
+      <div class="row">
+        <div class="panel">
+          <h4>Push Switch</h4>
+
+          <div class="container">
+            <div class="row">
+              <div class="push-btn">
+                <h5>Switch0</h5>
+
+                <div class="container">
+                  <div class="row">
+                    <span>Value: </span>
+                    <span id="psw0-status">OFF</span>
+                  </div>
+                  
+                  <div class="row">
+                    <button id="sw0-on" class="push-btn-body">ON</button>
+                    &ensp;
+                    <button id="sw0-off" class="push-btn-body">OFF</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="push-btn">
+                <h5>Switch1</h5>
+
+                <div class="container">
+                  <div class="row">
+                    <span>Value: </span>
+                    <span id="psw1-status">OFF</span>
+                  </div>
+                  
+                  <div class="row">
+                    <button id="sw1-on" class="push-btn-body">ON</button>
+                    &ensp;
+                    <button id="sw1-off" class="push-btn-body">OFF</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="push-btn">
+                <h5>Switch2</h5>
+
+                <div class="container">
+                  <div class="row">
+                    <span>Value: </span>
+                    <span id="psw2-status">OFF</span>
+                  </div>
+
+                  <div class="row">
+                    <button id="sw2-on" class="push-btn-body">ON</button>
+                    &ensp;
+                    <button id="sw2-off" class="push-btn-body">OFF</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="push-btn">
+                <h5>Switch3</h5>
+
+                <div class="container">
+                  <div class="row">
+                    <span>Value: </span>
+                    <span id="psw3-status">OFF</span>
+                  </div>
+
+                  <div class="row">
+                    <button id="sw3-on" class="push-btn-body">ON</button>
+                    &ensp;
+                    <button id="sw3-off" class="push-btn-body">OFF</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        &nbsp;
+
+        <!-- トグルスイッチ -->
+        <div class="panel">
+          <h4>Toggle Switch</h4>
+          <div class="toggle-switch-container">
+            <label class="toggle-switch">
+              <input type="checkbox" id="sw0-toggle">
+              <span class="toggle-lever"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch-container">
+            <label class="toggle-switch">
+              <input type="checkbox" id="sw1-toggle">
+              <span class="toggle-lever"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch-container">
+            <label class="toggle-switch">
+              <input type="checkbox" id="sw2-toggle">
+              <span class="toggle-lever"></span>
+            </label>
+          </div>
+
+          <div class="toggle-switch-container">
+            <label class="toggle-switch">
+              <input type="checkbox" id="sw3-toggle">
+              <span class="toggle-lever"></span>
+            </label>
+          </div>
+        </div>
+        &nbsp;
+
+        <!-- LED -->
+        <div class="panel">
+          <h4>LED</h4>
+          <div class="led-spacing">
+            <div id="led0" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led1" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led2" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led3" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led4" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led5" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led6" class="led-dot"></div>
+          </div>
+
+          <div class="led-spacing">
+            <div id="led7" class="led-dot"></div>
+          </div>
+
+        </div>
+        &nbsp;
+
+        <!-- Debug Mailbox -->
+        <div class="panel">
+          <h4>Debug Mailbox</h4><p class="unsupported">未対応・契約未定義</p>
+          <div class="debug-mailbox">DEBUG_A: <span id="debug-a-value">—</span></div>
+          <div class="debug-mailbox">DEBUG_B: <span id="debug-b-value">—</span></div>
+          <div class="debug-mailbox">DEBUG_C: <span id="debug-c-value">—</span></div>
+          <div class="debug-mailbox">DEBUG_D: <span id="debug-d-value">—</span></div>
+          <small>SRAM 0x2001FFF0..0x2001FFFC</small>
+        </div>
+        &nbsp;
+
+        <!-- Debug_B Scope -->
+        <div class="panel">
+          <h4>DEBUG_B Scope</h4><p class="unsupported">未対応</p>
+          <canvas id="debug-b-scope" class="scope-canvas" width="360" height="180"></canvas>
+          <div class="slider-value">latest: <span id="debug-b-latest">—</span></div>
+          <small>横軸: 時間 / 縦軸: 値（直近200サンプル）</small>
+        </div>
+        &nbsp;
+
+        <!-- 7セグ LED -->
+        <div class="panel">
+          <h4>7segment LED</h4>
+
+          <div class="seven-seg-group">
+            <div id="7seg-0" class="seven-seg">
+              <div class="segment seg-a"></div>
+              <div class="segment seg-b"></div>
+              <div class="segment seg-c"></div>
+              <div class="segment seg-d"></div>
+              <div class="segment seg-e"></div>
+              <div class="segment seg-f"></div>
+              <div class="segment seg-g"></div>
+              <div class="segment seg-dp"></div>
+            </div>
+
+            <div id="7seg-1" class="seven-seg">
+              <div class="segment seg-a"></div>
+              <div class="segment seg-b"></div>
+              <div class="segment seg-c"></div>
+              <div class="segment seg-d"></div>
+              <div class="segment seg-e"></div>
+              <div class="segment seg-f"></div>
+              <div class="segment seg-g"></div>
+              <div class="segment seg-dp"></div>
+            </div>
+
+            <div id="7seg-2" class="seven-seg">
+              <div class="segment seg-a"></div>
+              <div class="segment seg-b"></div>
+              <div class="segment seg-c"></div>
+              <div class="segment seg-d"></div>
+              <div class="segment seg-e"></div>
+              <div class="segment seg-f"></div>
+              <div class="segment seg-g"></div>
+              <div class="segment seg-dp"></div>
+            </div>
+
+            <div id="7seg-3" class="seven-seg">
+              <div class="segment seg-a"></div>
+              <div class="segment seg-b"></div>
+              <div class="segment seg-c"></div>
+              <div class="segment seg-d"></div>
+              <div class="segment seg-e"></div>
+              <div class="segment seg-f"></div>
+              <div class="segment seg-g"></div>
+              <div class="segment seg-dp"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="status-bar">
+      <p>Encoder: unsupported / 未対応 / 対応・確認状況: docs/gui-status.md</p><span>Bridge: </span><span id="status-text">connecting...</span>
+    </div>
+
+
+<script src="/static/app.js"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,37 @@
+# External firmware and generated data are not distribution content.
+*.elf
+*.bin
+*.map
+*.hex
+*.o
+*.save
+*.snapshot
+*.log
+results/
+output/
+output.xml
+log.html
+report.html
+build/
+.venv/
+__pycache__/
+*.pyc
+.env
+.vscode/
+
+# Renode Robot output (never part of the publication candidate).
+robot_output.xml
+logs/
+snapshots/
+
+# Additional local build and temporary output
+dist/
+tmp/
+temp/
+*.bak
+*.orig
+*.tmp
+*.temp
+*.swp
+*.swo
+*~

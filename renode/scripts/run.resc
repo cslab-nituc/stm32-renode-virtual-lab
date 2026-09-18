@@ -1,0 +1,5 @@
+# Required before include: $global.elf=@/absolute/path/firmware.elf
+# No default firmware and no build-system dependency.
+include $ORIGIN/platform.resc
+sysbus LoadELF $global.elf
+start

@@ -1,0 +1,55 @@
+// Project-authored platform; not copied from Renode official samples.
+// Project source is covered by LICENSE; Renode is an external dependency.
+// GPIO and a memory-backed ADC injection slot only; not a complete MCU model.
+nvic: IRQControllers.NVIC @ sysbus 0xE000E000
+    priorityMask: 0xF0
+    systickFrequency: 16000000
+    IRQ -> cpu@0
+
+cpu: CPU.CortexM @ sysbus 0x00000000
+    cpuType: "cortex-m4"
+    nvic: nvic
+
+flash: Memory.MappedMemory @ sysbus 0x08000000
+    size: 0x00080000
+
+sram: Memory.MappedMemory @ sysbus 0x20000000
+    size: 0x00020000
+
+// Retained as the RCC model's required collaborator, not a supported RTC API.
+rtc: Timers.STM32F4_RTC @ sysbus 0x40002800
+    AlarmIRQ -> nvic@41
+
+rcc: Miscellaneous.STM32F4_RCC @ sysbus 0x40023800
+    rtcPeripheral: rtc
+
+flash_ctrl: Memory.MappedMemory @ sysbus 0x40023C00
+    size: 0x400
+
+gpioA: GPIOPort.STM32_GPIOPort @ sysbus <0x40020000, +0x400>
+    4 -> led0@0
+    5 -> led1@0
+    6 -> led2@0
+    7 -> led3@0
+    8 -> led4@0
+    9 -> led5@0
+    10 -> led6@0
+    11 -> led7@0
+
+led0: Miscellaneous.LED @ gpioA
+led1: Miscellaneous.LED @ gpioA
+led2: Miscellaneous.LED @ gpioA
+led3: Miscellaneous.LED @ gpioA
+led4: Miscellaneous.LED @ gpioA
+led5: Miscellaneous.LED @ gpioA
+led6: Miscellaneous.LED @ gpioA
+led7: Miscellaneous.LED @ gpioA
+
+gpioB: GPIOPort.STM32_GPIOPort @ sysbus <0x40020400, +0x400>
+gpioC: GPIOPort.STM32_GPIOPort @ sysbus <0x40020800, +0x400>
+
+// Guest page alignment requires 0x400 bytes in Renode 1.17.0.
+// Only ADC1 SR/DR have injection semantics; this is not a full ADC model.
+// The backing range also covers other ADC addresses without modelling them.
+ADC1: Memory.MappedMemory @ sysbus 0x40012000
+    size: 0x400

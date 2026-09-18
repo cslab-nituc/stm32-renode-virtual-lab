@@ -1,0 +1,5 @@
+# Required Monitor variable: $global.elf (external ELF).
+include $ORIGIN/platform.resc
+sysbus LoadELF $global.elf
+i $ORIGIN/../../bridge/renode_bridge.py
+start

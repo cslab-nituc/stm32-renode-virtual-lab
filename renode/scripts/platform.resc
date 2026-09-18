@@ -1,0 +1,4 @@
+# Create a fresh machine only. No ELF, start, sockets, bridge or GUI.
+using sysbus
+mach create "stm32f446re"
+machine LoadPlatformDescription $ORIGIN/../platforms/stm32f446re.repl

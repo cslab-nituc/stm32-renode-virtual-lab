@@ -1,0 +1,5 @@
+# AnalogInput0 only. Caller must supply an integer in 0..4095 as $adc.
+# Pause first when deterministic observation is required.
+# This stub assigns DR and replaces SR with EOC only; it does not convert.
+sysbus WriteDoubleWord 0x4001204C $adc
+sysbus WriteDoubleWord 0x40012000 0x2
